@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <title>Lcyanstars</title>
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({
+                showProcessingMessages: false, //关闭js加载过程信息
+                messageStyle: "none", //不显示信息
+                extensions: ["tex2jax.js"],
+                jax: ["input/TeX", "output/HTML-CSS"],
+                tex2jax: {
+                    inlineMath:  [ ["$", "$"] ], //行内公式选择$
+                    displayMath: [ ["$$","$$"] ], //段内公式选择$$
+                    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'], //避开某些标签
+                    ignoreClass:"comment-content" //避开含该Class的标签
+                },
+                "HTML-CSS": {
+                    availableFonts: ["STIX","TeX"], //可选字体
+                    showMathMenu: false //关闭右击菜单显示
+                }
+            });
+            MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        </script>
+        <script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+	<h3>
+		欧几里得
+	</h3>
+<p>$\rm L$: 我们现在要解 $ax \equiv 1\pmod p$ 的同余方程</p>
+<p>$\rm P$: 用欧拉定理来求逆元是熟知的</p>
+<p>$\rm L$: 现在进行另一种处理，$x$ 是 $ax+py-1=0$ 这个不定方程的整数解</p>
+<p>$\rm P$: 根据裴蜀定理，可以推广为求 $ax+by=(a,b)$ 的整数解</p>
+<p>$\rm L$: 考虑将其变形为 $ax+(b+ak-ak)y=(a,b)$</p>
+<p>$\rm P$: 整理一下就是 $(ak+b)y+a(x-ky)=(a,b)$ </p>
+<p>$\rm L$: 你知道辗转相除法的过程吗</p>
+<p>$\rm P$: 嗯，利用 $(a,b) = (b,a\bmod b)$ 递归求解</p>
+<p>$\rm L$: 上面的式子是类似的</p>
+<p>$\rm P$: 是的，要求关于 $a,b$ 的解，只要求 $b,a\bmod b$ 的解</p>
+<p>$\rm L$: 所以这个过程被称做扩展欧几里得，试着分析其复杂度</p>
+<p>$\rm P$: 就是辗转相除法的复杂度，但是不会证明</p>
+<p>$\rm L$: 考虑 $Fib(n) \bmod Fib(n-1) = Fib(n-2)$</p>
+<p>$\rm P$: 嗯，$a \bmod b \leq a-b$，而 $Fib(n) \bmod Fib(n-1) = Fib(n)-Fib(n-1)$，$T(Fib(n)) = O(n)$，所以 $T(n) = O(\log n)$</p>
+<p>$\rm L$: 很好的复杂度和常数，要当年补模拟赛那道模 $998244353$ 用 exgcd 而不是费马小定理就不会 95pts 了/kk</p>
+<p>$\rm P$: 哪道啊</p>
+<p>$\rm L$: 那题现在交不了了/kk，尝试着用刚刚的方法求 $\sum^n_{i=0}\lfloor\frac{ai+b}{c}\rfloor$</p>
+<p>$\rm P$: 我推导一下:</p>
+<p>$\begin{align}\sum^n<em>{i=0}\lfloor\frac{ai+b}{c}\rfloor &amp;= \sum^n</em>{i=0}\sum^{\lfloor\frac{ai+b}{c}\rfloor-1}<em>{j=0}1 \ &amp;=\sum^{\lfloor\frac{an+b}{c}\rfloor-1}</em>{j=0}\sum^n<em>{i=0}1[j&lt;\lfloor\frac{ai+b}{c}\rfloor] \ &amp;=\sum^{\lfloor\frac{an+b}{c}\rfloor-1}</em>{j=0}\sum^n<em>{i=0}1[i&gt;\lfloor\frac{cj+c-b-1}{a}\rfloor] \ &amp;= n\lfloor\frac{an+b}{c}\rfloor-\sum^{\lfloor\frac{an+b}{c}\rfloor-1}</em>{i=0} (\lfloor\frac{c\bmod i+c-b-1}{a}\rfloor+\lfloor\frac{c}{a}\rfloor i) \ &amp;= (n-\frac{\lfloor\frac{an+b}{c}\rfloor-1}{2}\lfloor\frac{c}{a}\rfloor)\lfloor\frac{an+b}{c}\rfloor-\sum^{\lfloor\frac{an+b}{c}\rfloor-1}_{i=0} (\lfloor\frac{c\bmod i+c-b-1}{a}\rfloor)\end{align}$</p>
+<p>$\rm L$: 很好，用 $f(n,a,b,c)$ 表示 $\sum^n_{i=0}\lfloor\frac{ai+b}{c}\rfloor$，可以得到 $\begin{align}f(n,a,b,c) = (n-\frac{\lfloor\frac{an+b}{c}\rfloor-1}{2}\lfloor\frac{c}{a}\rfloor)\lfloor\frac{an+b}{c}\rfloor-f(\lfloor\frac{an+b}{c}\rfloor-1,c\bmod a,c-b-1,a)\end{align}$，</p>
+<p>接下来试着求 $\begin{align}g(n,a,b,c) &amp;= \sum^n<em>{i=0}(\lfloor\frac{ai+b}{c}\rfloor)^2 \ h(n,a,b,c) &amp;= \sum^n</em>{i=0}i\lfloor\frac{ai+b}{c}\rfloor\end{align}$</p>
+<p>$\rm P$: 看上去长得差不多啊，</p>
+<p> $\begin{align}g(n,a,b,c) &amp;= \sum^n<em>{i=0}(\lfloor\frac{ai+b}{c}\rfloor)^2 \ &amp;= \sum^n</em>{i=0}\sum^{\lfloor\frac{an+b}{c}\rfloor-1}<em>{j=0}\sum^{\lfloor\frac{an+b}{c}\rfloor-1}</em>{k=0}1 \ &amp;= \sum^n<em>{i=0}\sum^{\lfloor\frac{an+b}{c}\rfloor-1}</em>{j=0}\sum^{\lfloor\frac{an+b}{c}\rfloor-1}<em>{k=0} 1[j,k &lt; \lfloor\frac{ai+b}{c}\rfloor] \ &amp;= 2\sum^{\lfloor\frac{an+b}{c}\rfloor-1}</em>{j=0}\sum^j<em>{k=0}(n-\lfloor\frac{cj+c-b-1}{a}\rfloor)-\sum^{\lfloor\frac{an+b}{c}\rfloor-1}</em>{j=0}(n-\lfloor\frac{cj+c-b-1}{a}\rfloor)\ &amp;= n\lfloor\frac{an+b}{c}\rfloor^2 -f(\lfloor\frac{an+b}{c}\rfloor-1,c,c-b-1,a)-2h(\lfloor\frac{an+b}{c}\rfloor,c,c-b-1,a)\end{align}$</p>
+<p>$\begin{align}h(n,a,b,c) &amp;= \sum^n<em>{i=0}i\lfloor\frac{ai+b}{c}\rfloor \ &amp;=\sum^{\lfloor\frac{an+b}{c}\rfloor-1}</em>{j=0}\sum^n<em>{i=0}i[i&gt;\lfloor\frac{cj+c-b-1}{a}\rfloor] \ &amp;=\sum^{\lfloor\frac{an+b}{c}\rfloor-1}</em>{j=0}(\frac{n(n+1)}{2}-\frac{\lfloor\frac{cj+c-b-1}{a}\rfloor(\lfloor\frac{cj+c-b-1}{a}\rfloor-1)}{2}) \ &amp;= \frac{1}{2}(n(n+1))\lfloor\frac{an+b}{c}\rfloor-g(\lfloor\frac{an+b}{c}\rfloor-1,c,c-b-1,a)-f(\lfloor\frac{an+b}{c}\rfloor-1,c,c-b-1,a)\end{align}$</p>
+<p>就是 $g$ 和 $h$ 互相推，不过好难写啊/yun</p>
+<p><a href="https://www.luogu.com.cn/problem/P5656">【模板】二元一次不定方程 (exgcd)</a>
+<a href="https://www.luogu.com.cn/problem/P5170">【模板】类欧几里得算法</a></p>
+<p>$\begin{align}f(n,a,b,c) &amp;= \sum^n<em>{i=0}\lfloor\frac{ai+b}{c}\rfloor \ &amp;= \sum^n</em>{i=0}\sum^{\lfloor\frac{ai+b}{c}\rfloor-1}<em>{j=0}1 \ &amp;=\sum^{\lfloor\frac{an+b}{c}\rfloor-1}</em>{j=0}\sum^n<em>{i=0}1[j&lt;\lfloor\frac{ai+b}{c}\rfloor] \ &amp;=\sum^{\lfloor\frac{an+b}{c}\rfloor-1}</em>{j=0}\sum^n<em>{i=0}1[i&gt;\lfloor\frac{cj+c-b-1}{a}\rfloor] \ &amp;= n\lfloor\frac{an+b}{c}\rfloor-\sum^{\lfloor\frac{an+b}{c}\rfloor-1}</em>{i=0} (\lfloor\frac{c\bmod i+c-b-1}{a}\rfloor+\lfloor\frac{c}{a}\rfloor i) \ &amp;= (n-\frac{\lfloor\frac{an+b}{c}\rfloor-1}{2}\lfloor\frac{c}{a}\rfloor)\lfloor\frac{an+b}{c}\rfloor-f(\lfloor\frac{an+b}{c}\rfloor-1,c\bmod a,c-b-1,a)\end{align}$</p>
+<p>$\begin{align}g(n,a,b,c) &amp;= \sum^n<em>{i=0}(\lfloor\frac{ai+b}{c}\rfloor)^2 \ &amp;= \sum^n</em>{i=0}\sum^{\lfloor\frac{an+b}{c}\rfloor-1}<em>{j=0}\sum^{\lfloor\frac{an+b}{c}\rfloor-1}</em>{k=0}1 \ &amp;= n\lfloor\frac{an+b}{c}\rfloor^2 -f(\lfloor\frac{an+b}{c}\rfloor-1,c,c-b-1,a)-2h(\lfloor\frac{an+b}{c}\rfloor,c,c-b-1,a) \ &amp;\not= (n-\lfloor\frac{c}{a}\rfloor)(\lfloor\frac{an+b}{c}\rfloor)^2-f(\lfloor\frac{an+b}{c}\rfloor-1,c\bmod a,c-b-1,a)-2h(\lfloor\frac{an+b}{c}\rfloor-1,c\bmod a,c-b-1,a) \end{align}$</p>
+<p>$\begin{align}h(n,a,b,c) &amp;= \sum^n_{i=0}i\lfloor\frac{ai+b}{c}\rfloor \ &amp;= \frac{1}{2}(n(n+1))\lfloor\frac{an+b}{c}\rfloor-g(\lfloor\frac{an+b}{c}\rfloor-1,c,c-b-1,a)-f(\lfloor\frac{an+b}{c}\rfloor-1,c,c-b-1,a) \ &amp;\not= \frac{1}{2}(n(n+1)\lfloor\frac{an+b}{c}\rfloor-g(\lfloor\frac{an+b}{c}\rfloor-1,c\bmod a,c-b-1,a) \ &amp; -(2\lfloor\frac{c}{a}\rfloor+1)f(\lfloor\frac{an+b}{c}\rfloor-1,c\bmod a,c-b-1,a)+\lfloor\frac{c}{a}\rfloor\frac{\frac{an+b}{c}(\frac{an+b}{c}-1)}{2}) \end{align}$</p>
+<p>$g(n,a,b,c) = \sum^n<em>{i=0}(\lfloor\frac{ai+b}{c}\rfloor)^2 = \sum^n</em>{i=0}(\lfloor\frac{(a\bmod c)i+b\bmod c}{c}\rfloor+(a/c)i+(b/c))^2$</p>
+<p>$\sum (\lfloor\frac{(a\bmod c)i+b\bmod c}{c}\rfloor+\lfloor\frac{a}{c}\rfloor i+\lfloor\frac{b}{c}\rfloor)^2 = \sum \lfloor\frac{(a\bmod c)i+b\bmod c}{c}\rfloor^2 + 2(\lfloor\frac{a}{c}\rfloor i+\lfloor\frac{b}{c}\rfloor)\lfloor\frac{(a\bmod c)i+b\bmod c}{c}\rfloor + (\lfloor\frac{a}{c}\rfloor i+\lfloor\frac{b}{c}\rfloor)^2$</p>
+<p>$\sum2(\lfloor\frac{a}{c}\rfloor i+\lfloor\frac{b}{c}\rfloor) = (n\lfloor\frac{a}{c}\rfloor+2\lfloor\frac{b}{c}\rfloor)(n+1)$</p>
+<p>$\sum(\lfloor\frac{a}{c}\rfloor i+\lfloor\frac{b}{c}\rfloor)^2$</p>
+<p>$\sum (\lfloor\frac{(a\bmod c)i+b\bmod c}{c}\rfloor+\lfloor\frac{a}{c}\rfloor i+\lfloor\frac{b}{c}\rfloor)i = \sum \lfloor\frac{(a\bmod c)i+b\bmod c}{c}\rfloor+\lfloor\frac{a}{c}\rfloor\sum i^2 + \lfloor\frac{b}{c}\rfloor \sum i$</p>
+<p>​    </p>
+ 	</body>
+</html>
