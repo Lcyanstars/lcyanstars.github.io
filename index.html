@@ -1,39 +1,7 @@
-<html>
-    <head>
-        <title>Lcyanstars</title>
-        <script type="text/x-mathjax-config">
-            MathJax.Hub.Config({
-                showProcessingMessages: false, //关闭js加载过程信息
-                messageStyle: "none", //不显示信息
-                extensions: ["tex2jax.js"],
-                jax: ["input/TeX", "output/HTML-CSS"],
-                tex2jax: {
-                    inlineMath:  [ ["$", "$"] ], //行内公式选择$
-                    displayMath: [ ["$$","$$"] ], //段内公式选择$$
-                    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'], //避开某些标签
-                    ignoreClass:"comment-content" //避开含该Class的标签
-                },
-                "HTML-CSS": {
-                    availableFonts: ["STIX","TeX"], //可选字体
-                    showMathMenu: false //关闭右击菜单显示
-                }
-            });
-            MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
-        </script>
-        <script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    </head>
-    <body>
-        <h3>
-            UVA580 危险的组合 Critical Mass
-        </h3>
-        <p>DP做法：转移的时候只要考虑最后有几个连续的铀盒或者是否已经满足条件。</p>
-        <p>所以用 $dp_{i,j}$ 表示有考虑了前 $i$ 个盒子，最后有 $j$ 个连续铀盒的方案数。特殊地，当 $j = m$ 时表示前 $i$ 个盒子已经有了连续 $m$ 个铀盒的方案数，其中 $m$ 为需要的连续铀盒数，题目中， $m = 3$。</p>
-        <p>转移方程：$\begin{cases} dp_{0,0}=1 \\ dp_{i,0} = \sum ^{m-1} _{j = 0} dp_{i-1,j} \\ dp_{i,j} = dp_{i-1,j-1} \\ dp_{i,m} = 2dp_{i-1,m} + dp_{i-1,m-1}\end{cases}$</p>
-        <p>时间复杂度 $O(nm)$</p>
-        <p>不难发现 $dp_{i,j}=dp_{i-j,0}$ ，则 $<br>\begin{cases} dp_{0,0} = dp_{1,0} = 1 \\ dp_{i,0} = 2dp_{i-1,0}-dp_{i-m-1,0} \\ dp_{i,m} = 2dp_{i-1,m} + dp_{i-m,0}\end{cases}$</p>
-        <p>时间复杂度 $O(n)$</p>
-        <p>递推做法， $f(n) = 2^{n-m} + \sum ^{n-m-1}_{i=0} 2^{n-i-m-1}(2^{i}-f(i))$</p>
-        <p>假设 $n$ 个箱子第 $i+1$ 箱子为 ‘L’ ，第 $i+2,i+3,...,i+m$ 个箱子为 'U'，前 $i$ 个箱子不满足题目条件，方案数为 $(2^{i}-f(i))·2^{n-i-m-1}$ 个。</p>
-        <p>算上前 $m$ 个箱子都为 'U' 的方案数 $2^{n-m}$ 个，不重复，不遗漏。</p>  
-    </body>
-</html>
+<p><a href="https://lcyanstars.github.io/20231106">20231106</a></p>
+<p><a href="https://lcyanstars.github.io/20231102">20231102</a></p>
+<p><a href="https://lcyanstars.github.io/20231010">20231010</a></p>
+<p><a href="https://lcyanstars.github.io/20231007">20231007</a></p>
+<p><a href="https://lcyanstars.github.io/20231002">20231002</a></p>
+<p><a href="https://lcyanstars.github.io/20230807">20230807</a></p>
+<p><a href="https://lcyanstars.github.io/20230801">20230801</a></p>
