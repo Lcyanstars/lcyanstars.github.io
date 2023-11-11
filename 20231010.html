@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <title>Lcyanstars</title>
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({
+                showProcessingMessages: false, //关闭js加载过程信息
+                messageStyle: "none", //不显示信息
+                extensions: ["tex2jax.js"],
+                jax: ["input/TeX", "output/HTML-CSS"],
+                tex2jax: {
+                    inlineMath:  [ ["$", "$"] ], //行内公式选择$
+                    displayMath: [ ["$$","$$"] ], //段内公式选择$$
+                    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'], //避开某些标签
+                    ignoreClass:"comment-content" //避开含该Class的标签
+                },
+                "HTML-CSS": {
+                    availableFonts: ["STIX","TeX"], //可选字体
+                    showMathMenu: false //关闭右击菜单显示
+                }
+            });
+            MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        </script>
+        <script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+	<h3>
+		相扑
+	</h3>
+    <p>​    圆形相扑场上，两位相扑手，$\rm L$ 和 $\rm P$，互相凝望着彼此。</p>
+    <p>​    谁如果出了边界，便会成为落败的一方。</p>
+    <p>​    在 MC 中，可以用连续击打的方式将对方击落台下。而在现实中，这种方法是不行的——一旦对方被击退，便会超出攻击距离，失去连打的机会。相扑场上，两名相扑手的质量是相等的，仅考虑弹性碰撞，发生碰撞时两者的速度会互换——如果你以 $10m/s$ 的速度向对方冲去，那么对方就会以 $10m/s$ 的速度飞离。于是这场比赛胜利的关键在于速度的大小。 </p>
+    <p>​    两人俯下身，呼吸变得急促，在刚刚结束的百米赛场上他们已经见识了动量的力量——随着发令枪响，子弹的动量便转化为运动员的动量，使他们在 $10s$ 内有了 $100m$ 的位移。</p>
+    <p>​    比赛哨声吹响，$\rm L$ 与 $\rm P$ 朝着相反的方向奔去，并绕着圆形边界开始加速。直道上再怎样加速也只能加速到一定的速度，而两人借鉴了回旋加速器的经验，在圆形的线路上不断加速。他们是在做追及运动，一旦有一方追上另一方，就能给对方更大的速度，使他先飞出边界。</p>
+    <p>​    随着比赛的进行，$\rm L$ 取得速度的优势，不断地逼近着 $\rm P$。$\pi r, \frac{\pi r}{2},\frac{\pi r}{3},\frac{\pi r}{4}\dots$ </p>
+    <p>​    &quot;嘟——&quot;，比赛结束的哨音吹响，双方都停下了身体的动作，向着圆形边界的切线飞出。</p>
+    <p>​    因为 $\rm L$ 飞出的速度更大，所以，$\rm P$ 取得了胜利。裁判宣布道。</p>
+    </body>
+</html>
