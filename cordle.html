@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Wordle Web</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 1rem; }
+    #code { font-family: monospace; white-space: pre; background: #f7f7f7; padding: 1rem; border-radius: 4px; line-height: 1.4; }
+    .char { display: inline; }
+    .masked { color: #888; }
+    .guessed { background-color: #ffeb3b; color: #000; }
+    #guess { width: 300px; padding: 0.5rem; font-size: 1rem; }
+    #submit { padding: 0.5rem 1rem; font-size: 1rem; }
+    #message { margin-top: 1rem; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>Code Wordle</h1>
+  <div id="code"></div>
+  <div style="margin-top: 1rem;">
+    <input type="text" id="guess" placeholder="Enter guess (>=3 chars)">
+    <button id="submit">Guess</button>
+  </div>
+  <p id="message"></p>
+
+  <script>
+    // Add your code snippets here
+    const codeSnippets = [
+`#include <bits/stdc++.h>
+
+int main()
+{  
+    int n;
+    scanf("%d",&n);
+    std::vector<long long> a(n);
+    std::vector<long long> b(50);
+    for(int i=0;i<n;i++)
+    {  
+        scanf("%lld",&a[i]);
+        for(int j=49;~j;j--)
+            if(a[i] >> j & 1)
+            {  
+                if(b[j] == 0)
+                {  
+                    b[j]=a[i];
+                    break;
+                }  
+                else
+                    a[i] ^= b[j];
+            }  
+    }  
+    long long ans=0;
+    for(int i=49;~i;i--)
+        if(~ans >> i & 1)
+            ans ^= b[i];
+    printf("%lld\n",ans);
+    return 0;
+}  `
+    ];
+
+    const target = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+    const length = target.length;
+    const guessed = Array(length).fill(false);
+    const maskChar = '@';
+    const codeDiv = document.getElementById('code');
+    const guessInput = document.getElementById('guess');
+    const submitBtn = document.getElementById('submit');
+    const messageP = document.getElementById('message');
+
+    function render() {
+      codeDiv.innerHTML = '';
+      for (let i = 0; i < length; i++) {
+        const ch = target[i];
+        const span = document.createElement('span');
+        span.className = 'char ' + (ch === ' ' || ch === '\n' ? '' : (guessed[i] ? 'guessed' : 'masked'));
+        // Preserve whitespace and line breaks
+        if (ch === '\n') {
+          span.innerHTML = '<br>';
+        } else if (ch === ' ') {
+          span.innerHTML = '&nbsp;';
+        } else {
+          span.textContent = guessed[i] ? ch : maskChar;
+        }
+        codeDiv.appendChild(span);
+      }
+    }
+
+    function checkWin() {
+      for (let i = 0; i < length; i++) {
+        const ch = target[i];
+        if (ch !== ' ' && ch !== '\n' && !guessed[i]) return false;
+      }
+      return true;
+    }
+
+    submitBtn.addEventListener('click', () => {
+      const guess = guessInput.value;
+      if (guess.length < 3) {
+        messageP.textContent = 'Guess must be at least 3 characters.';
+        return;
+      }
+      messageP.textContent = '';
+      // Escape special regex chars
+      const escaped = guess.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const regex = new RegExp(escaped, 'g');
+      let match;
+      let found = 0;
+      while ((match = regex.exec(target)) !== null) {
+        found++;
+        const start = match.index;
+        for (let i = start; i < start + guess.length; i++) {
+          guessed[i] = true;
+        }
+        // Move regex.lastIndex to avoid zero-width loop
+        regex.lastIndex = start + 1;
+      }
+      messageP.textContent = found ? `Found ${found} match(es).` : 'No matches.';
+      render();
+
+      if (checkWin()) {
+        messageP.textContent = '🎉 Congratulations! Full code revealed.';
+      }
+    });
+
+    // Initial render
+    render();
+  </script>
+</body>
+</html>
