@@ -25,7 +25,12 @@
   <p id="message"></p>
 
   <script>
-    // Add your code snippets here
+    /**
+     * 添加代码片段时，请使用模板字符串（反引号），
+     * 并对反斜杠进行转义 —— 如需在代码中展示 \n，
+     * 请写成 `\\n`。这样 \n 会作为两个字符显示，
+     * 而不会被解析为实际换行。
+     */
     const codeSnippets = [
 `#include <bits/stdc++.h>
 
@@ -54,7 +59,7 @@ int main()
     for(int i=49;~i;i--)
         if(~ans >> i & 1)
             ans ^= b[i];
-    printf("%lld\n",ans);
+    printf("%lld\\n",ans);
     return 0;
 }  `
     ];
@@ -74,7 +79,6 @@ int main()
         const ch = target[i];
         const span = document.createElement('span');
         span.className = 'char ' + (ch === ' ' || ch === '\n' ? '' : (guessed[i] ? 'guessed' : 'masked'));
-        // Preserve whitespace and line breaks
         if (ch === '\n') {
           span.innerHTML = '<br>';
         } else if (ch === ' ') {
@@ -87,11 +91,7 @@ int main()
     }
 
     function checkWin() {
-      for (let i = 0; i < length; i++) {
-        const ch = target[i];
-        if (ch !== ' ' && ch !== '\n' && !guessed[i]) return false;
-      }
-      return true;
+      return target.split('').every((ch, i) => ch === ' ' || ch === '\n' || guessed[i]);
     }
 
     submitBtn.addEventListener('click', () => {
@@ -101,7 +101,6 @@ int main()
         return;
       }
       messageP.textContent = '';
-      // Escape special regex chars
       const escaped = guess.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       const regex = new RegExp(escaped, 'g');
       let match;
@@ -112,7 +111,6 @@ int main()
         for (let i = start; i < start + guess.length; i++) {
           guessed[i] = true;
         }
-        // Move regex.lastIndex to avoid zero-width loop
         regex.lastIndex = start + 1;
       }
       messageP.textContent = found ? `Found ${found} match(es).` : 'No matches.';
@@ -123,7 +121,7 @@ int main()
       }
     });
 
-    // Initial render
+    // 初始渲染
     render();
   </script>
 </body>
